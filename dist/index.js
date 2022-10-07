@@ -50,8 +50,12 @@ function run() {
                 core.setFailed("Version text file path or package JSON file path is empty.");
                 return;
             }
-            let versionTextStr = fs_1.default.readFileSync(path_1.default.join(__dirname, versionTextFilePath));
-            let packageJsonStr = fs_1.default.readFileSync(path_1.default.join(__dirname, packageJsonFilePath));
+            let wsPath = process.env.GITHUB_WORKSPACE;
+            core.debug("Workspace path: " + wsPath);
+            let versionTextStr = fs_1.default.readFileSync(path_1.default.join(wsPath, versionTextFilePath));
+            let packageJsonStr = fs_1.default.readFileSync(path_1.default.join(wsPath, packageJsonFilePath));
+            core.debug("Version text path: " + versionTextStr);
+            core.debug("Package JSON path: " + packageJsonStr);
             let packageJson = JSON.parse(packageJsonStr);
             if (versionTextStr !== packageJson['version']) {
                 core.setFailed('Version text does not match with package JSON version string.');

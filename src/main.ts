@@ -13,9 +13,13 @@ async function run(): Promise<void> {
     }
 
     let wsPath = <string>process.env.GITHUB_WORKSPACE;
+    core.debug("Workspace path: " + wsPath);
 
     let versionTextStr = <string><unknown>fs.readFileSync(path.join(wsPath, versionTextFilePath));
     let packageJsonStr = <string><unknown>fs.readFileSync(path.join(wsPath, packageJsonFilePath));
+
+    core.debug("Version text path: " + versionTextStr);
+    core.debug("Package JSON path: " + packageJsonStr);
 
     let packageJson = JSON.parse(packageJsonStr);
 
