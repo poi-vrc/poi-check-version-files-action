@@ -13,15 +13,18 @@ async function run(): Promise<void> {
     }
 
     let wsPath = <string>process.env.GITHUB_WORKSPACE;
-    core.debug("Workspace path: " + wsPath);
+    core.info("Workspace path: " + wsPath);
 
     let versionTextStr = <string><unknown>fs.readFileSync(path.join(wsPath, versionTextFilePath));
     let packageJsonStr = <string><unknown>fs.readFileSync(path.join(wsPath, packageJsonFilePath));
 
-    core.debug("Version text path: " + versionTextStr);
-    core.debug("Package JSON path: " + packageJsonStr);
+    core.info("Version text path: " + versionTextStr);
+    core.info("Package JSON path: " + packageJsonStr);
 
     let packageJson = JSON.parse(packageJsonStr);
+
+    core.info("Version text string: " + versionTextStr);
+    core.info("Package JSON string: " + packageJson['version']);
 
     if (versionTextStr !== packageJson['version']) {
       core.setFailed('Version text does not match with package JSON version string.');
