@@ -12,8 +12,10 @@ async function run(): Promise<void> {
       return;
     }
 
-    let versionTextStr = <string><unknown>fs.readFileSync(path.join(__dirname, versionTextFilePath));
-    let packageJsonStr = <string><unknown>fs.readFileSync(path.join(__dirname, packageJsonFilePath));
+    let wsPath = <string>process.env.GITHUB_WORKSPACE;
+
+    let versionTextStr = <string><unknown>fs.readFileSync(path.join(wsPath, versionTextFilePath));
+    let packageJsonStr = <string><unknown>fs.readFileSync(path.join(wsPath, packageJsonFilePath));
 
     let packageJson = JSON.parse(packageJsonStr);
 
