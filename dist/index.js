@@ -52,14 +52,14 @@ function run() {
             }
             let wsPath = process.env.GITHUB_WORKSPACE;
             core.info("Workspace path: " + wsPath);
+            core.info("Version text path: " + versionTextFilePath);
+            core.info("Package JSON path: " + packageJsonFilePath);
             let versionTextStr = fs_1.default.readFileSync(path_1.default.join(wsPath, versionTextFilePath));
             let packageJsonStr = fs_1.default.readFileSync(path_1.default.join(wsPath, packageJsonFilePath));
-            core.info("Version text path: " + versionTextStr);
-            core.info("Package JSON path: " + packageJsonStr);
             let packageJson = JSON.parse(packageJsonStr);
             core.info("Version text string: " + versionTextStr);
             core.info("Package JSON string: " + packageJson['version']);
-            if (versionTextStr !== packageJson['version']) {
+            if (versionTextStr.trim() !== packageJson['version'].trim()) {
                 core.setFailed('Version text does not match with package JSON version string.');
             }
         }
