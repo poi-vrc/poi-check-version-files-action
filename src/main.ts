@@ -29,6 +29,8 @@ async function run(): Promise<void> {
     if (versionTextStr !== packageJson['version']) {
       core.setFailed('Version text does not match with package JSON version string.');
     }
+
+    core.setOutput("version", packageJson['version']);
   } catch (error) {
     if (error instanceof Error) {
       core.setFailed(error.message);
